@@ -1,0 +1,17 @@
+services:
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - "1883:1883" #PUERTO DEFAULT PARA ESCUCHAR MQTT
+      - "5672:5672" #PUERTO DEFAULT PARA ESCUCHAR DEF AMQP
+      - "15672:15672" #PUERTO DEFAULT PARA ADMINISITRADOR
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - ./enabled_plugins:/etc/rabbitmq/enabled_plugins
+
+volumes:
+  rabbitmq_data:
