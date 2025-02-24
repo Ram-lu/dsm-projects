@@ -1,7 +1,7 @@
 const mqtt = require('mqtt')
 
 const options = {
-    host: 'localhost',
+    host: 'rabbitmq',
     port: 1883,
     protocol: 'mqtt',
     username: 'admin',

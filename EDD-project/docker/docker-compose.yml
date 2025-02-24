@@ -12,6 +12,13 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
       - ./enabled_plugins:/etc/rabbitmq/enabled_plugins
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 5s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    
 
   postgres:
     image: postgres:14
@@ -26,7 +33,29 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./postgres-event/init.sql:/docker-entrypoint-initdb.d/init.sql
-      
+
+  publisher:
+    build: ../publisher
+    command: npm run start
+    volumes:
+      - ../publisher:/app
+    ports: 
+      - "3000:3000"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  suscriber:
+    build: ../suscriber
+    command: npm run start
+    volumes:
+      - ../suscriber:/app
+    ports: 
+      -   "3001:3001"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
 volumes:
   rabbitmq_data:
   postgres_data:

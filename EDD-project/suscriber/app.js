@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 
 const options = {
-    host: 'localhost',
+    host: 'rabbitmq',
     port: 1883,
     protocol: 'mqtt',
     username: 'admin',

@@ -5,14 +5,14 @@ const LogService = require('../application/services/LogService');
 
 const dbConfig = {
     user: 'admin',
-    host: 'localhost',
+    host: 'postgres',
     database: 'event_db',
     password: 'admin123',
     port: 5432
 }
 
 const mqttOptions = {
-    host: 'localhost',
+    host: 'rabbitmq',
     port: 1883,
     protocol: 'mqtt',
     username: 'admin',
